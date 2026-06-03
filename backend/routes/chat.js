@@ -113,5 +113,21 @@ router.post("/chat", async (req, res) => {
         });
     }
 });
+ router.delete("/thread/:threadId", async (req, res) => {
+    const { threadId } = req.params;
+
+    try {
+        await Thread.findOneAndDelete({ threadId });
+
+        return res.status(200).json({
+            success: "Thread deleted successfully"
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message
+        });
+    }
+});
 
 export default router;
